@@ -254,14 +254,18 @@ def import_DI(io_path):
 """ 
 in order to get the timestamp and the seconds column 
 """
-df_DI0 = pd.read_csv(io_path) 
-df_DI0['Value'] = df_DI0['Value.Value'] 
-df_DI0['Seconds'] = df_DI0['Value.Seconds'] 
-raw_phdata_DI0_true = df_DI0[df_DI0.Value==True] 
-df_raw_phdata_DI0_T_timestamp = pd.DataFrame(raw_phdata_DI0_true, columns=["Timestamp"])
-df_raw_phdata_DI0_T_seconds = pd.DataFrame(raw_phdata_DI0_true, columns=["Seconds"])
-df_raw_phdata_DI0_T_timestamp = df_raw_phdata_DI0_T_timestamp.reset_index() 
-df_raw_phdata_DI0_T_seconds = df_raw_phdata_DI0_T_seconds.reset_index()
+def import_DI_seconds(io_path): 
+    df_DI0 = pd.read_csv(io_path) 
+    df_DI0['Value'] = df_DI0['Value.Value'] 
+    df_DI0['Seconds'] = df_DI0['Value.Seconds'] 
+    raw_phdata_DI0_true = df_DI0[df_DI0.Value==True] 
+    df_raw_phdata_DI0_T_timestamp = pd.DataFrame(raw_phdata_DI0_true, columns=["Timestamp"])
+    df_raw_phdata_DI0_T_seconds = pd.DataFrame(raw_phdata_DI0_true, columns=["Seconds"])
+    df_raw_phdata_DI0_T_timestamp = df_raw_phdata_DI0_T_timestamp.reset_index() 
+    df_raw_phdata_DI0_T_seconds = df_raw_phdata_DI0_T_seconds.reset_index() 
+    df_raw_phdata_DI0_T_timestamp["TTL"] = 1
+    df_raw_phdata_DI0_T_seconds["TTL"] = 1
+    return df_raw_phdata_DI0_T_seconds
 
 
 
@@ -709,12 +713,15 @@ def show_plot(df_alldata):
 
 """ 5.1 Check the same length of the events from BPOD (Behav) & TTL (Nph) """
 # load the bpod reward times - it was the TTL that was sent to the nph system 
-bpod_event = "stimOnTrigger_times" #"goCue_times" #"feedback_times"
-bpod_sync = np.array(df_alldata[bpod_event])
+def bpod_sync_f(bpod_event): #"stimOnTrigger_times" "goCue_times" #"feedback_times"
+    bpod_sync = np.array(df_alldata[bpod_event])
+    return bpod_sync
 
-# load the TTL reward times - it was the TTL that was sent to the nph system
-nph_sync = np.array(df_raw_phdata_DI0_true["Timestamp"]) 
-nph_sync_2 = 
+# load the TTL reward times - it was the TTL that was sent to the nph system 
+def nph_sync_f(nph_col): #Seconds
+    nph_sync = np.array(df_raw_phdata_DI0_true[nph_col]) 
+    return nph_sync 
+
 #to test if they have the same length 
 print(len(bpod_sync),len(nph_sync), len(nph_sync_2))
 print(nph_sync[-1]-nph_sync[-2],nph_sync[-2]-nph_sync[-3], nph_sync[-3]-nph_sync[-4]) 

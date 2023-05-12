@@ -12,7 +12,7 @@
 #===========================================================================
 #                            1. IMPORTS
 #===========================================================================
-from photometry_processing_new_functions import *
+from photometry_processing_functions import *
 #%%
 #===========================================================================
 #                            2. FILE PATHS
@@ -196,17 +196,17 @@ show_plot(df_alldata)
 #===========================================================================
 
 """ 5.1 Check the same length of the events from BPOD (Behav) & TTL (Nph) """
-# load the bpod reward times - it was the TTL that was sent to the nph system
-#bpod_sync = np.array(df_alldata["feedback_times"])
-bpod_sync = np.array(df_alldata["stimOnTrigger_times"])
-#bpod_sync = np.array(df_alldata["goCue_times"]) 
+df_raw_phdata_DI0_true = import_DI_seconds(io_path) 
+# load the bpod event times - it was the TTL that was sent to the nph system
+bpod_sync = bpod_sync_f(bpod_event = "stimOnTrigger_times") #"feedback_times" "goCue_times" 
+# load the received TTL event times - it was the TTL that was received by the nph system
+nph_sync = nph_sync_f(nph_col = "Seconds")
 
-# load the TTL reward times - it was the TTL that was sent to the nph system
-nph_sync = np.array(df_raw_phdata_DI0_true["Timestamp"]) 
 #to test if they have the same length 
 print(len(bpod_sync),len(nph_sync))
-print(nph_sync[-1]-nph_sync[-2],nph_sync[-2]-nph_sync[-3], nph_sync[-3]-nph_sync[-4]) 
-print(bpod_sync[-1]-bpod_sync[-2],bpod_sync[-2]-bpod_sync[-3], bpod_sync[-3]-bpod_sync[-4]) 
+bpod_diff = np.diff(bpod_sync)
+nph_diff = np.diff(nph_sync)
+print("Bpod first ", bpod_diff[0:5], "\n\n Nph first ", nph_diff[0:5], "\n\n \n\n Bpod last ", bpod_diff[(len(bpod_diff)-5):(len(bpod_diff))], "\n\n Nph last ", nph_diff[(len(nph_diff)-5):(len(nph_diff))]) 
 #================================================
 
 
