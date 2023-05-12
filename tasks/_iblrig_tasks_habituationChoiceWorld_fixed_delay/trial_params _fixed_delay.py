@@ -117,7 +117,7 @@ if __name__ == "__main__":
     import scratch._user_settings as _user_settings
 
     import task_settings as _task_settings
-    from tasks._iblrig_tasktasks._iblrig_tasktasks._iblrig_tasks_habituationChoic_habituationChoic_habituationChoiceWorld_fixed_delay.World_fixed_delay.World_fixed_delay.seeessssion_params_fixed_delay_fixed_delay_fixed_delay import SessionParamHandler
+    from tasks._iblrig_tasks_habituationChoiceWorld_fixed_delay.session_params_fixed_delay import SessionParamHandler
 
     dt = datetime.datetime.now()
     dt = [
