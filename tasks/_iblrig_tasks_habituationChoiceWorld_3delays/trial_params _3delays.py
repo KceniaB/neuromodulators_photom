@@ -53,7 +53,8 @@ class TrialParamHandler(object):
         self.stim_phase = 0.0
         self.stim_reverse = 0
         self.contrast = random.choice(self.contrast_set)
-        self.delay_to_stim_center = sph.DELAY_TO_STIM_CENTER #KB which is 10, change to 5
+        self.delay_to_stim_center_mean = sph.DELAY_TO_STIM_CENTER
+        self.delay_to_stim_center = np.random.normal(self.delay_to_stim_center_mean, 2)
         self.signed_contrast = self.contrast * np.sign(self.position)
         self.water_delivered = 0
 
@@ -100,8 +101,8 @@ class TrialParamHandler(object):
         self.stim_phase = random.uniform(0, 2 * math.pi)
         # Update position
         self.position = random.choice(self.position_set)
-        # # Update delay to stimulus center #KB commented the following lines of code 12052023 
-        # self.delay_to_stim_center = np.random.normal(self.delay_to_stim_center_mean, 2)
+        # Update delay to stimulus center
+        self.delay_to_stim_center = np.random.normal(self.delay_to_stim_center_mean, 2)
         # Update water delivered
         self.water_delivered += self.reward_amount
         # Open the data file to append the next trial
@@ -132,7 +133,7 @@ if __name__ == "__main__":
     dt.insert(3, "-")
     _user_settings.PYBPOD_SESSION = "".join(dt)
     _user_settings.PYBPOD_SETUP = "habituationChoiceWorld"
-    _user_settings.PYBPOD_PROTOCOL = "_iblrig_tasks_habituationChoiceWorld_fixed_delay"
+    _user_settings.PYBPOD_PROTOCOL = "_iblrig_tasks_habituationChoiceWorld_3delays"
     if platform == "linux":
         r = "/home/nico/Projects/IBL/github/iblrig"
         _task_settings.IBLRIG_FOLDER = r
