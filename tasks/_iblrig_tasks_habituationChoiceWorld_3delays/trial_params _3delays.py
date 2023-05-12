@@ -53,8 +53,8 @@ class TrialParamHandler(object):
         self.stim_phase = 0.0
         self.stim_reverse = 0
         self.contrast = random.choice(self.contrast_set)
-        self.delay_to_stim_center_mean = sph.DELAY_TO_STIM_CENTER
-        self.delay_to_stim_center = np.random.normal(self.delay_to_stim_center_mean, 2)
+        # self.delay_to_stim_center_mean = sph.DELAY_TO_STIM_CENTER
+        self.delay_to_stim_center = np.random.choice([0.5, 3, 6.5], p=[1/3, 1/3, 1/3])
         self.signed_contrast = self.contrast * np.sign(self.position)
         self.water_delivered = 0
 
@@ -102,7 +102,7 @@ class TrialParamHandler(object):
         # Update position
         self.position = random.choice(self.position_set)
         # Update delay to stimulus center
-        self.delay_to_stim_center = np.random.normal(self.delay_to_stim_center_mean, 2)
+        self.delay_to_stim_center = np.random.choice([0.5, 3, 5], p=[1/3, 1/3, 1/3])
         # Update water delivered
         self.water_delivered += self.reward_amount
         # Open the data file to append the next trial

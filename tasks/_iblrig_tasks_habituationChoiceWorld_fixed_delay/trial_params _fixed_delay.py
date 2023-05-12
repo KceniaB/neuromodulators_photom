@@ -53,7 +53,7 @@ class TrialParamHandler(object):
         self.stim_phase = 0.0
         self.stim_reverse = 0
         self.contrast = random.choice(self.contrast_set)
-        self.delay_to_stim_center = sph.DELAY_TO_STIM_CENTER #KB which is 10, change to 5
+        self.delay_to_stim_center = sph.DELAY_TO_STIM_CENTER #KB which is 10, change to 4
         self.signed_contrast = self.contrast * np.sign(self.position)
         self.water_delivered = 0
 

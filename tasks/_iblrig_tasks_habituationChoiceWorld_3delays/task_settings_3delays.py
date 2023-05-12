@@ -17,7 +17,7 @@ USE_VISUAL_STIMULUS = True  # Run the visual stim in bonsai
 BONSAI_EDITOR = False  # Whether to open the visual stim Bonsai editor or not
 # STATE TIMERS
 ITI = 1  # Length of gray screen between trials
-DELAY_TO_STIM_CENTER = 3  # KB changed 12052023 variable between 3: 0.1, 3, 6
+# DELAY_TO_STIM_CENTER = 3  # KB changed 12052023 variable between 3: 0.1, 3, 6.5 in the trial_params_3delays.py file 
 # VISUAL STIM
 STIM_POSITIONS = [-35, 35]  # All possible positions for this session (deg)
 STIM_FREQ = 0.10  # cycle/visual degree
